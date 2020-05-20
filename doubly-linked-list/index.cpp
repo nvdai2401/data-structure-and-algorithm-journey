@@ -53,6 +53,7 @@ int valueAt(int index) {
 	}
 	return -1;
 }
+
 // pushFront(item): Add a node with value to the front of list.
 void pushFront(int item) {
 	struct Node* newNode = CreateNode(item);
@@ -64,9 +65,9 @@ void pushFront(int item) {
 	newNode->next = head;
 	head = newNode;
 }
+
 // popFront(): Remove front node and return its value.
 int popFront() {
-	
 	if (head == NULL) return -1;
 	struct Node* nextFront = head->next;
 	struct Node* frontNode = head;
@@ -76,12 +77,14 @@ int popFront() {
 	
 	return frontNode->data;
 }
+
 // pushBack(value): Add a node with value to the end of list.
 void pushBack(int value) {
+	if (head == NULL) return;
+	
 	struct Node* tailNode;
 	struct Node* newNode = CreateNode(value);
 	struct Node* temp = head;
-	if (head == NULL) return;
 	
 	while(temp != NULL) {
 		if (temp->next == NULL) {
@@ -97,10 +100,11 @@ void pushBack(int value) {
 
 // popBack(): Remove last node and return its value.
 void popBack() {
+	if (head == NULL) return;
+	
 	struct Node* tailNode;
 	struct Node* preTail;
 	struct Node* temp = head;
-	if (head == NULL) return;
 	
 	while(temp != NULL) {
 		if (temp->next == NULL) {
@@ -116,13 +120,15 @@ void popBack() {
 
 // front(): Return value of front node.
 int front() {
+	if (head == NULL) NULL;
 	return head->data;
 }
 
 // back(): Return value of last node.
 int back() {
+	if (head == NULL) return NULL;
+	
 	struct Node* temp = head;
-	if (head == NULL) return -1;
 	
 	while(temp != NULL) {
 		if (temp->next == NULL) return temp->data;
@@ -133,13 +139,6 @@ int back() {
 
 // insert(value, index): Insert a node with value at given index.
 void insert(int value, int index) {
-	struct Node* temp = head;
-	struct Node* newNode = CreateNode(value);
-	struct Node* prevNode;
-	struct Node* currentNode;
-	int length = size();
-	int count = 0;
-	
 	if (index == 0) {
 		pushFront(value);
 		return;
@@ -150,6 +149,13 @@ void insert(int value, int index) {
 		return;
 	}
 	
+	struct Node* temp = head;
+	struct Node* newNode = CreateNode(value);
+	struct Node* prevNode;
+	struct Node* currentNode;
+	int length = size();
+	int count = 0;
+
 	while(temp != NULL) {
 		if (count == index) {
 			prevNode = temp->prev;
@@ -168,13 +174,6 @@ void insert(int value, int index) {
 
 // removeAt(index): Remove node at given index.
 void removeAt(int index) {
-	struct Node* temp = head;
-	struct Node* prevNode;
-	struct Node* currentNode;
-	struct Node* nextNode;
-	int length = size();
-	int count = 0;
-	
 	if (index == 0) {
 		popFront();
 		return;
@@ -184,6 +183,13 @@ void removeAt(int index) {
 		popBack();
 		return;
 	}
+
+	struct Node* temp = head;
+	struct Node* prevNode;
+	struct Node* currentNode;
+	struct Node* nextNode;
+	int length = size();
+	int count = 0;
 	
 	while(temp != NULL) {
 		printf("%d,", count);
@@ -197,7 +203,6 @@ void removeAt(int index) {
 		temp = temp->next;
 	}
 	
-	
 	prevNode->next = nextNode;
 	nextNode->prev = prevNode;
 	currentNode = NULL;
@@ -207,11 +212,8 @@ int main() {
 	pushFront(10);
 	pushFront(8);
 	pushFront(2);
-//	popFront();
-//	pushBack(100);
-//	popBack();
-	removeAt(10);
-	printf("Res: %d", valueAt(1));
+	removeAt(1);
+	printf("Res: %d", front());
 
 	return 0;
 }

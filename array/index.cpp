@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <conio.h>
 
 #define CAPACITY 8
 #define TRUE 1
@@ -33,6 +32,7 @@ bool isEmpty() {
 
 // itemAt(index): Return item at given index - O(1)
 int itemAt(int index) {
+	if (isEmpty() == 1) return -1;
 	return arr[index];
 }
 
@@ -45,7 +45,8 @@ void append(int item) {
 // insert(item, index): Insert item at given index - O(n)
 void insert(int index, int item) {
 	int length = size();
-	if (length == 0 || index > length) return;
+	if (index > length) return;
+	if (length == 0) append(item);
 	
 	for (int i = length; i >= index; i--) {
 		arr[i] = arr[i - 1];
@@ -70,8 +71,9 @@ int pop() {
 // removeAt(index): Remove item at given index and return its value O(n)
 int removeAt(int index) {
 	int length = size();
-	if (length == 0 || index > length) return 0;
 	int value = arr[index];
+	if (length == 0 || index > length) return 0;
+	if (index == length - 1) pop();
 	
 	for (int i = index; i < length - 1; i++) {
 		arr[i] = arr[i + 1];
@@ -94,6 +96,5 @@ int main() {
 	removeAt(2);
 	showArray();
 
-	getch();
 	return 0;
 }
