@@ -1,3 +1,3 @@
-# Global Developers in Singapore 2020 - Gen 1 - MindX School
+# Data Structure & Algorithm Journey
 
-> This project is used for implementing Data structure and Algorithms in this program.
+> Data Structures & Algorithms implementations
