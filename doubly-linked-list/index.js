@@ -194,3 +194,6 @@ class DoublyLinkedList {
 // doublyLinkedList.removeAt(0)
 // doublyLinkedList.popFront()
 // doublyLinkedList.printList()
+
+
+module.exports ={ Node, DoublyLinkedList }
