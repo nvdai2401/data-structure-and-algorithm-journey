@@ -3,8 +3,9 @@
 */
 
 class Node {
-  constructor(value) {
+  constructor(value, key) {
     this.value = value
+    this.key = key ? key : null
     this.next = null
     this.prev = null
   }
@@ -44,8 +45,8 @@ class DoublyLinkedList {
   }
 
   // pushFront(item): Add a node with value to the front of list.
-  pushFront(item) {
-    const newNode = new Node(item)
+  pushFront(value, key) {
+    const newNode = new Node(value, key)
     if (this.length === 0) {
       this.head = newNode
       this.tail = newNode
@@ -70,8 +71,8 @@ class DoublyLinkedList {
   }
 
   // pushBack(value): Add a node with value to the end of list.
-  pushBack(item) {
-    const newNode = new Node(item)
+  pushBack(value, key) {
+    const newNode = new Node(value, key)
     if (this.length === 0) {
       this.head = newNode
       this.tail = newNode
