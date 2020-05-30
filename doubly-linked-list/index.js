@@ -186,15 +186,16 @@ class DoublyLinkedList {
   }
 }
 
-// const doublyLinkedList = new DoublyLinkedList()
-// doublyLinkedList.pushFront(100)
-// doublyLinkedList.pushFront(12)
-// doublyLinkedList.pushFront(2)
-// doublyLinkedList.pushBack(200)
-// doublyLinkedList.popBack()
-// doublyLinkedList.removeAt(0)
-// doublyLinkedList.popFront()
-// doublyLinkedList.printList()
-
+/*
+const doublyLinkedList = new DoublyLinkedList()
+doublyLinkedList.pushFront(100)
+doublyLinkedList.pushFront(12)
+doublyLinkedList.pushFront(2)
+doublyLinkedList.pushBack(200)
+doublyLinkedList.popBack()
+doublyLinkedList.removeAt(0)
+doublyLinkedList.popFront()
+doublyLinkedList.printList()
+*/
 
 module.exports ={ Node, DoublyLinkedList }

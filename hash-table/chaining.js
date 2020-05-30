@@ -35,7 +35,7 @@ class ChainingHashTable {
     }
 
     if (this.size === this.capacity) {
-      this.extendSize()
+      this.extendCapacity()
     }
   }
 
@@ -59,7 +59,7 @@ class ChainingHashTable {
       this.size--
     }
     if (this.capacity > 8 && this.size <= Math.floor(this.capacity / 4)) {
-      this.shrinkSize()
+      this.shrinkCapacity()
     }
   }
 
@@ -81,18 +81,18 @@ class ChainingHashTable {
     return null
   }
 
-  extendSize() {
+  extendCapacity() {
     this.capacity *= 2
-    this.arr = this.cloneArray(this.arr, this.size)
+    this.arr = this.clone(this.arr, this.size)
   }
 
-  shrinkSize() {
+  shrinkCapacity() {
     const oldCapacity = this.capacity
     this.capacity /= 2
-    this.arr = this.cloneArray(this.arr, oldCapacity)
+    this.arr = this.clone(this.arr, oldCapacity)
   }
 
-  cloneArray(arr, size) {
+  clone(arr, size) {
     let newArr = new Array(this.capacity)
 
     for (let i = 0; i < size; i++) {
@@ -112,6 +112,7 @@ class ChainingHashTable {
   }
 }
 
+/**
 const HT = new ChainingHashTable()
 HT.insert(10, 3)
 HT.insert(10, 11)
@@ -132,11 +133,7 @@ HT.delete(10)
 HT.delete(13)
 HT.delete(14)
 HT.delete(15)
-// HT.insert(13)
-// HT.insert(14)
+*/
 
-// HT.delete(11)
-console.log(HT)
-// HT.arr.forEach((item, index) => console.log(index, item))
 
 module.exports = { ChainingHashTable }
