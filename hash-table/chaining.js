@@ -33,11 +33,15 @@ class ChainingHashTable {
         this.arr[index].pushBack(value, key)
       }
     }
+
+    if (this.size === this.capacity) {
+      this.extendSize()
+    }
   }
 
   delete(key) {
     const index = this.hash(key)
-    if (this.arr[index].length > 1) {
+    if (this.arr[index] && this.arr[index].length > 1) {
       let cur = this.arr[index].tail
       let count = 0
       
@@ -53,6 +57,9 @@ class ChainingHashTable {
     } else {
       this.arr[index] = undefined
       this.size--
+    }
+    if (this.capacity > 8 && this.size <= Math.floor(this.capacity / 4)) {
+      this.shrinkSize()
     }
   }
 
@@ -76,18 +83,32 @@ class ChainingHashTable {
 
   extendSize() {
     this.capacity *= 2
-    let newArr = []
-    for (let i = 0; i < this.size; i++) {
-      if (this.arr[i]) {
+    this.arr = this.cloneArray(this.arr, this.size)
+  }
+
+  shrinkSize() {
+    const oldCapacity = this.capacity
+    this.capacity /= 2
+    this.arr = this.cloneArray(this.arr, oldCapacity)
+  }
+
+  cloneArray(arr, size) {
+    let newArr = new Array(this.capacity)
+
+    for (let i = 0; i < size; i++) {
+      if (arr[i]) {
         const linkList = new DoublyLinkedList()
-        let cur = this.arr[i].head
+        let cur = arr[i].head
+        const index = this.hash(arr[i].head.key)
+        
         while (cur) {
-          
+          linkList.pushBack(cur.value, cur.key)
           cur = cur.next
         }
+        newArr[index] = linkList
       }
     }
-
+    return newArr
   }
 }
 
@@ -95,16 +116,27 @@ const HT = new ChainingHashTable()
 HT.insert(10, 3)
 HT.insert(10, 11)
 HT.insert(12, 11)
-// HT.insert(11, 10)
-// HT.insert(11, 10)
-// HT.insert(11, 10)
-// HT.insert(11, 10)
-// HT.insert(12)
+HT.insert(11, 10)
+HT.insert(11, 10)
+HT.insert(12, 11)
+HT.insert(12, 13)
+HT.insert(12, 14)
+HT.insert(12, 15)
+HT.insert(12, 16)
+HT.insert(12, 17)
+HT.insert(12, 12)
+
+HT.delete(3)
+HT.delete(11)
+HT.delete(10)
+HT.delete(13)
+HT.delete(14)
+HT.delete(15)
 // HT.insert(13)
 // HT.insert(14)
 
 // HT.delete(11)
-// console.log(HT.search(3))
 console.log(HT)
+// HT.arr.forEach((item, index) => console.log(index, item))
 
 module.exports = { ChainingHashTable }
