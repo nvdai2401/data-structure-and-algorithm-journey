@@ -34,6 +34,10 @@ class ChainingHashTable {
       }
       cur = cur.prev
     }
+
+    if (this.size === this.capacity) {
+      this.extendCapacity()
+    }
   }
 
   delete(key) {
