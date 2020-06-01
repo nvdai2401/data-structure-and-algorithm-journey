@@ -1,0 +1,25 @@
+{
+  "name": "data-structure-and-algorithm-journey",
+  "version": "1.0.0",
+  "description": "> Data Structures & Algorithms implementations",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn test",
+      "pre-push": ""
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com-personal:nvdai2401/data-structure-and-algorithm-journey.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^4.2.5",
+    "jest": "^26.0.1"
+  }
+}
