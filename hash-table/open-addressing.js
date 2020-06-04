@@ -4,10 +4,10 @@ const LOWER_LOAD_FACTOR = 0.25
 const GROW_SHRINK_FACTOR = 2
 
 class Node {
-  constructor(key, value, deleted = false) {
+  constructor(key, value) {
     this.key = key
     this.value = value
-    this.deleted = deleted
+    this.deleted = false
   }
 }
 
@@ -48,7 +48,7 @@ class OpenAddressingHT {
   
     this.arr[index].deleted = true
     this.size--
-    if (this.__getGrowShrinkFactor() <= LOWER_LOAD_FACTOR) {
+    if (this.__getGrowShrinkFactor() <= LOWER_LOAD_FACTOR && this.capacity > DEFAULT_CAPACITY) {
       this.__shrink()
     }
   }
@@ -81,7 +81,7 @@ class OpenAddressingHT {
 
   __rehash(newCapacity) {
     const oldCapacity = this.capacity
-    const oldArr = [...this.arr]
+    const oldArr = this.arr
     
     this.capacity = newCapacity
     this.arr = new Array(this.capacity)
@@ -111,37 +111,28 @@ class OpenAddressingHT {
   }
 
   __nearestPrime(k) {
-    for (let i = k - 1; i >= 2; i--) {
-      if (this.__isPrime(i)) return i
-    }
+    return k - 1
   }
-
-  __isPrime(k) {
-    if (k <= 1) return false
-    for (let i = 2; i <= Math.trunc(k / 2); i++) {
-      if (k % i === 0) return false
-    }
-    return true
-  }
-  
 }
 
-const HT = new OpenAddressingHT()
+// const HT = new OpenAddressingHT()
 
-HT.insert(1, 1002)
-HT.insert(2, 101)
-HT.insert(3, 101)
-HT.insert(4, 101)
-HT.insert(5, 101)
-HT.insert(6, 101)
-HT.insert(7, 101)
-// HT.insert(18, 1021)
-// HT.delete(5)
-// HT.delete(6)
-// HT.delete(7)
-// HT.delete(1)
-// HT.delete(2)
-console.log(HT)
-console.log(HT.search(4))
+// HT.insert(1, 1002)
+// HT.insert(2, 101)
+// HT.insert(3, 101)
+// HT.insert(4, 101)
+// HT.insert(5, 101)
+// HT.insert(6, 101)
+// HT.insert(7, 101)
+// HT.insert(8, 1013)
+// HT.insert(24, 1013)
+// // HT.insert(18, 1021)
+// // HT.delete(5)
+// // HT.delete(6)
+// // HT.delete(7)
+// // HT.delete(1)
+// // HT.delete(2)
+// console.log(HT)
+// console.log(HT.search(4))
 
 module.exports = { OpenAddressingHT }

@@ -93,7 +93,7 @@ describe('Doubly linked list', () => {
       expect(chainingHashTable.search(item.key)).toBe(item.value)
     })
     it('should not return value invalid correctly', () => {
-      const item = { key: 1, value: 100}
+      const item = { key: 1, value: 100 }
       const invalidKey = 2
       
       expect(chainingHashTable.search(item.key)).toBeFalsy()
