@@ -1,11 +1,11 @@
 /*
 <===============Implement Doubly Linked List===============>
 */
-
 class Node {
-  constructor(value, key) {
+  constructor(value, key = null) {
     this.value = value
-    this.key = key ? key : null
+    // key property is used for implementing hash table using chaining technique
+    this.key = key
     this.next = null
     this.prev = null
   }
@@ -30,8 +30,8 @@ class DoublyLinkedList {
 
   // valueAt(index): Return value of node at given index.
   valueAt(index) {
-    if (!isValid(this.length, index)) {
-      return -1
+    if (index < 0 || index >= this.length) {
+      return null
     }
 
     let curr = this.head
@@ -41,10 +41,11 @@ class DoublyLinkedList {
       count++
       curr = curr.next
     }
-    return -1
+    return null
   }
 
   // pushFront(item): Add a node with value to the front of list.
+  // don't need pass key param to this function if you don't need it
   pushFront(value, key) {
     const newNode = new Node(value, key)
     if (this.length === 0) {
@@ -55,18 +56,22 @@ class DoublyLinkedList {
       newNode.next = this.head
       this.head = newNode
     }
-    this.length += 1;
+    this.length += 1
   }
 
   // popFront(): Remove front node and return its value.
   popFront() {
-    if (this.isEmpty()) return false
     let headNode = this.head
+    if (this.isEmpty()) return false
+    if (this.length === 1) {
+      this.reset()
+      return headNode.value
+    }
     let nextHeadNode = this.head.next
-
     this.head.next = null
     nextHeadNode.prev = null
     this.head = nextHeadNode
+    this.length--
     return headNode.value
   }
 
@@ -81,39 +86,42 @@ class DoublyLinkedList {
       newNode.prev = this.tail
       this.tail = newNode
     }
-    this.length += 1;
+    this.length += 1
   }
 
   // popBack(): Remove last node and return its value.
   popBack() {
-    if (this.isEmpty()) return false
     let nodeTail = this.tail
+    if (this.isEmpty()) return false
+    if (this.length === 1) {
+      this.reset()
+      return nodeTail.value
+    }
     let prevTail = this.tail.prev
 
     this.tail.prev = null
     prevTail.next = null
     this.tail = prevTail
+    this.length-- 
     return nodeTail.value
   }
 
   // front(): Return value of front node.
   front() {
     if (this.isEmpty()) return null
-    if (this.length === 1) return this.head.value
     return this.head.value
   }
 
   // back(): Return value of last node.
   back() {
     if (this.isEmpty()) return null
-    if (this.length === 1) return this.head.value
-    return this.head.value
+    return this.tail.value
   }
 
   // insert(value, index): Insert a node with value at given index.
   insert(value, index) {
     if (index < 0 || index > this.length) return null
-    else if (index === 0) {
+    if (index === 0) {
       return this.pushFront(value)
     } else if (index === this.length) {
       return this.pushBack(value)
@@ -144,7 +152,7 @@ class DoublyLinkedList {
   // removeAt(index): Remove node at given index.
   removeAt(index) {
     if (!this.length || index < 0 || index >= this.length) return null
-    else if (index === 0) {
+    if (index === 0) {
       return this.popFront()
     } else if (index === this.length - 1) {
       return this.popBack()
@@ -171,6 +179,13 @@ class DoublyLinkedList {
     }
   }
 
+  // reset linked list
+  reset() {
+    this.head = null
+    this.tail = null
+    this.length = 0
+  }
+
   // print list
   printList() {
     let temp = this.head
@@ -186,16 +201,4 @@ class DoublyLinkedList {
   }
 }
 
-/*
-const doublyLinkedList = new DoublyLinkedList()
-doublyLinkedList.pushFront(100)
-doublyLinkedList.pushFront(12)
-doublyLinkedList.pushFront(2)
-doublyLinkedList.pushBack(200)
-doublyLinkedList.popBack()
-doublyLinkedList.removeAt(0)
-doublyLinkedList.popFront()
-doublyLinkedList.printList()
-*/
-
-module.exports ={ Node, DoublyLinkedList }
+module.exports = { Node, DoublyLinkedList }
