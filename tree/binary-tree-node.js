@@ -75,13 +75,7 @@ class BinaryTreeNode {
     }
     return false
   }
-
-  static copyNode(sourceNode, targetNode) {
-    targetNode.setValue(sourceNode.value)
-    targetNode.setLeft(sourceNode.left)
-    targetNode.setRight(sourceNode.right)
-  }
-
+  
   traverseInOrder() {
     let res = []
 
@@ -93,6 +87,12 @@ class BinaryTreeNode {
       res = res.concat(this.right.traverseInOrder())
     }
     return res
+  }
+
+  static copyNode(sourceNode, targetNode) {
+    targetNode.setValue(sourceNode.value)
+    targetNode.setLeft(sourceNode.left)
+    targetNode.setRight(sourceNode.right)
   }
 }
 
