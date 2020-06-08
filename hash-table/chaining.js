@@ -1,8 +1,6 @@
 const { Node, DoublyLinkedList } = require('../linked-list/doubly-linked-list')
 
 const DEFAULT_CAPACITY = 8
-const UPPER_LOAD_FACTOR = 0.7
-const LOWER_LOAD_FACTOR = 0.25
 const GROW_SHRINK_FACTOR = 2
 
 class ChainingHashTable {

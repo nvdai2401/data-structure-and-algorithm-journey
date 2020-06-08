@@ -115,24 +115,4 @@ class OpenAddressingHT {
   }
 }
 
-// const HT = new OpenAddressingHT()
-
-// HT.insert(1, 1002)
-// HT.insert(2, 101)
-// HT.insert(3, 101)
-// HT.insert(4, 101)
-// HT.insert(5, 101)
-// HT.insert(6, 101)
-// HT.insert(7, 101)
-// HT.insert(8, 1013)
-// HT.insert(24, 1013)
-// // HT.insert(18, 1021)
-// // HT.delete(5)
-// // HT.delete(6)
-// // HT.delete(7)
-// // HT.delete(1)
-// // HT.delete(2)
-// console.log(HT)
-// console.log(HT.search(4))
-
 module.exports = { OpenAddressingHT }
