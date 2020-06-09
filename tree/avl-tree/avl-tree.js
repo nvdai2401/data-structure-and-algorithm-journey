@@ -35,8 +35,10 @@ class AVLTree extends BinarySearchTree {
 
   // Left rotate at given node
   leftRotate(rootNode) {
+    // Detach left right node from root node since it going to be replaced
     const rightNode = rootNode.right
     rootNode.setRight(null)
+
     if (rootNode.parent === null) {
       rightNode.parent = null
       this.root = rightNode
@@ -111,4 +113,6 @@ AVL.insert(51)
 AVL.delete(51)
 AVL.delete(43)
 
-console.log(AVL.root.traverseInOrder())
+console.log(AVL.root.find(21))
+
+module.exports = { AVLTree }
