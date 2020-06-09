@@ -90,11 +90,11 @@ class BinarySearchTreeNode extends BinaryTreeNode {
     }
 
     if (value < this.value) {
-      return this.left.find(value)
+      return this.left ? this.left.find(value) : null
     }
 
     if (value > this.value) {
-      return this.right.find(value)
+      return this.right ? this.right.find(value) : null
     }
 
     return null
