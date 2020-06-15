@@ -1,16 +1,13 @@
+const BIGGER = 1
+const EQUAL = 0
+const SMALLER = -1
+
 class PriorityQueue {
   constructor() {
     this.heapContainer = []
     this.priorities = new Map()
   }
-
-  extractMax() {
-    if (this.heapContainer.length === 0) return null
-    const result = this.heapContainer[0]
-    this.remove(result)
-    return result
-  }
-
+  
   add(item, priority) {
     if (this.priorities.has(item)) {
       this.priorities.set(item, priority)
@@ -20,6 +17,13 @@ class PriorityQueue {
     this.heapContainer.push(item)
     this.__heapifyUp()
     return this
+  }
+
+  extractMax() {
+    if (this.heapContainer.length === 0) return null
+    const result = this.heapContainer[0]
+    this.remove(result)
+    return result
   }
 
   remove(item) {
@@ -47,6 +51,13 @@ class PriorityQueue {
         return i
       }
     }
+  }
+
+  peek() {
+    if (this.heapContainer.length === 0) {
+      return null
+    }
+    return this.heapContainer[0]
   }
   
   __getLeftChildIndex(parentIndex) {
@@ -91,19 +102,12 @@ class PriorityQueue {
     this.heapContainer[indexTwo] = temp
   }
 
-  __peek() {
-    if (this.heapContainer.length === 0) {
-      return null
-    }
-    return this.heapContainer[0]
-  }
-
   __heapifyUp(startIndex = this.heapContainer.length - 1) {
     let curIndex = startIndex
 
     while (this.__hasParent(curIndex)) {
       const parentIndex = this.__getParentIndex(curIndex)
-      if (this.__comparePriority(this.heapContainer[parentIndex], this.heapContainer[curIndex]) === 1) break
+      if (this.__comparePriority(this.heapContainer[parentIndex], this.heapContainer[curIndex]) === BIGGER) break
       this.__swap(curIndex, parentIndex)
       curIndex = parentIndex
     }
@@ -121,7 +125,7 @@ class PriorityQueue {
       }
 
       if (!this.heapContainer[nextIndex]) return
-      if (this.__comparePriority(this.heapContainer[curIndex], this.heapContainer[nextIndex]) === 1) break
+      if (this.__comparePriority(this.heapContainer[curIndex], this.heapContainer[nextIndex]) === BIGGER) break
 
       this.__swap(curIndex, nextIndex)
       curIndex = nextIndex
@@ -129,8 +133,8 @@ class PriorityQueue {
   }
 
   __comparePriority(a, b) {
-    if (this.priorities.get(a) === this.priorities.get(b)) return 0
-    return this.priorities.get(a) < this.priorities.get(b) ? -1 : 1
+    if (this.priorities.get(a) === this.priorities.get(b)) return EQUAL
+    return this.priorities.get(a) < this.priorities.get(b) ? SMALLER : BIGGER
   }
 }
 

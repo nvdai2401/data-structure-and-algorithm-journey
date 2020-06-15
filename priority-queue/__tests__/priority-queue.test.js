@@ -26,7 +26,7 @@ describe('PriorityQueue', () => {
 
   it('should add an item correctly', () => {
     expect(priorityQueue.heapContainer.join(', ')).toBe('2, 5, 1, 8, 9, 6, 100')
-    expect(priorityQueue.extractMax()).toBe(2)
+    expect(priorityQueue.peek()).toBe(2)
   })
 
   it('should extract max item correctly', () => {
