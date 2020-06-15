@@ -43,8 +43,6 @@ class AVLTree extends BinarySearchTree {
 
     newNode.setRight(rightNodeLeftChild)
     newNode.setLeft(rootNode.left)
-
-    
     rootNode.setValue(rightNode.value)
     rootNode.setLeft(newNode)
     rootNode.setRight(rightNodeRightChild)
