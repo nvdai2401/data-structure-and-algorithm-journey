@@ -44,34 +44,62 @@ class Sorting {
     }
   }
 
-  heapSort() {
-    for (let i = Math.floor(this.items.length / 2); i >= 0; i--) {
-      this.__maxHeapify(i, this.items.length)
+  // sort the array by order ascending or descending
+  heapSort(order = 'ascending') {
+    let heapify
+    if (order === 'ascending') {
+      heapify = this.__maxHeapify.bind(this)
+    } else {
+      heapify = this.__minHeapify.bind(this)
     }
 
+    for (let i = Math.floor(this.items.length / 2) - 1; i >= 0; i--) {
+      heapify(i, this.items.length)
+    }
+ 
     for (let i = this.items.length - 1; i > 0; i--) {
       this.__swap(0, i)
-      this.__maxHeapify(0, i - 1)
+      heapify(0, i)
     }
   }
-
+   
+  // build max heap
   __maxHeapify(startIndex, endIndex) {
-    while (true) {
-      let largest = startIndex
-      let left = 2 * startIndex + 1
-      let right = 2 * startIndex + 2
-
-      if (left < endIndex && this.items[left] > this.items[largest]) {
-        largest = left
-      }
+    let largest = startIndex
+    let left = 2 * startIndex + 1
+    let right = 2 * startIndex + 2
+    
+    if (left < endIndex && this.items[left] > this.items[largest]) {
+      largest = left
+    }
+    
+    if (right < endIndex && this.items[right] > this.items[largest]) {
+      largest = right
+    }
+    
+    if (startIndex !== largest) {
+      this.__swap(largest, startIndex)
+      this.__maxHeapify(largest, endIndex)
+    }
+  }
   
-      if (right < endIndex && this.items[right] > this.items[largest]) {
-        largest = right
-      }
+  // build min heap
+  __minHeapify(startIndex, endIndex) {
+    let smallest = startIndex
+    let left = 2 * startIndex + 1
+    let right = 2 * startIndex + 2
 
-      if (largest === startIndex) break
-      this.__swap(startIndex, largest)
-      startIndex = largest
+    if (left < endIndex && this.items[left] < this.items[smallest]) {
+      smallest = left
+    }
+
+    if (right < endIndex && this.items[right] < this.items[smallest]) {
+      smallest = right
+    }
+    
+    if (smallest !== startIndex) {
+      this.__swap(smallest, startIndex)
+      this.__minHeapify(smallest, endIndex)
     }
   }
 
