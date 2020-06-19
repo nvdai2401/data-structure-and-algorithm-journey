@@ -4,8 +4,8 @@ class Sorting {
   }
 
   bubbleSort() {
-    let swapped = false
     for (let i = 0; i < this.items.length - 1; i++) {
+      let swapped = false
       for (let j = 0; j < this.items.length - 1 - i; j++) {
         if (this.items[j] > this.items[j + 1]) {
           this.__swap(j, j + 1)
@@ -41,6 +41,37 @@ class Sorting {
       }
       insertAt = j + 1
       this.items[insertAt] = item
+    }
+  }
+
+  heapSort() {
+    for (let i = Math.floor(this.items.length / 2); i >= 0; i--) {
+      this.__maxHeapify(i, this.items.length)
+    }
+
+    for (let i = this.items.length - 1; i > 0; i--) {
+      this.__swap(0, i)
+      this.__maxHeapify(0, i - 1)
+    }
+  }
+
+  __maxHeapify(startIndex, endIndex) {
+    while (true) {
+      let largest = startIndex
+      let left = 2 * startIndex + 1
+      let right = 2 * startIndex + 2
+
+      if (left < endIndex && this.items[left] > this.items[largest]) {
+        largest = left
+      }
+  
+      if (right < endIndex && this.items[right] > this.items[largest]) {
+        largest = right
+      }
+
+      if (largest === startIndex) break
+      this.__swap(startIndex, largest)
+      startIndex = largest
     }
   }
 

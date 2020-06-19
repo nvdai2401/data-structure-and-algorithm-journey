@@ -85,11 +85,11 @@ class PriorityQueue {
   }
 
   __hasLeftChild(parentIndex) {
-    return this.__getLeftChildIndex(parentIndex) >= 0
+    return this.__getLeftChildIndex(parentIndex) < this.items.length
   }
 
   __hasRightChild(parentIndex) {
-    return this.__getLeftChildIndex(parentIndex) >= 0
+    return this.__getRightChildIndex(parentIndex) < this.items.length
   }
   
   __hasParent(childIndex) {
