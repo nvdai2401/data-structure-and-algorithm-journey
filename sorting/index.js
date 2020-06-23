@@ -62,6 +62,77 @@ class Sorting {
       heapify(0, i)
     }
   }
+
+  mergeSort(left = 0, right = this.items.length - 1) {
+    if (left < right) {
+      const middle = left + Math.floor((right - left) / 2)
+      this.mergeSort(left, middle)
+      this.mergeSort(middle + 1, right)
+      this.__merge(left, middle, right)
+    }
+  }
+
+  quickSort(left = 0, right = this.items.length - 1) {
+    if (left < right) {
+      const pivot = this.__partition(left, right)
+      this.quickSort(left, pivot - 1)
+      this.quickSort(pivot + 1, right)
+    }
+  }
+
+  __partition(low, high) {
+    const pivot = this.items[high]
+    let i = low - 1
+
+    for (let j = low; j < high; j++) {
+      if (this.items[j] < pivot) {
+        i++
+        this.__swap(i, j)
+      }
+    }
+    this.__swap(i + 1, high)
+    return i + 1
+  }
+
+  __merge(left, middle, right) {
+    let i, j, k
+    const n1 = middle - left + 1
+    const n2 = right - middle
+    let L = [], R = []
+
+    for (i = 0; i < n1; i++) {
+      L[i] = this.items[left + i]
+    }
+    for (j = 0; j < n2; j++) {
+      R[j] = this.items[middle + 1 + j]
+    }
+
+    i = 0
+    j = 0
+    k = left
+    while (i < n1 && j < n2) {
+      if (L[i] <= R[j]) {
+        this.items[k] = L[i]
+        i++
+      } else {
+        this.items[k] = R[j]
+        j++
+      }
+      k++
+    }
+
+    while (i < n1) {
+      this.items[k] = L[i]
+      i++
+      k++
+    }
+
+    while (j < n2) {
+      this.items[k] = R[j]
+      j++
+      k++
+    }
+  }
    
   // build max heap
   __maxHeapify(startIndex, endIndex) {
@@ -109,5 +180,10 @@ class Sorting {
     this.items[secondIndex] = temp
   }
 }
+
+const s = new Sorting([12, 11, 13, 5, 6, 7])
+s.mergeSort()
+
+console.log(s.items)
 
 module.exports = Sorting
