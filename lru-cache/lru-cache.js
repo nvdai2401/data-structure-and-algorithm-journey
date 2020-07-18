@@ -3,14 +3,15 @@ const { Node, DoublyLinkedList } = require('../linked-list/doubly-linked-list');
 const DEFAULT_CAPACITY = 8;
 
 class LRUCache {
-  constructor() {
+  constructor(capacity = DEFAULT_CAPACITY) {
     this.list = new DoublyLinkedList();
     // store pairs of key and node for quick accessing the list
     this.map = new Map();
+    this.capacity = capacity;
   }
 
   put(key, value) {
-    if (this.list.length >= DEFAULT_CAPACITY) {
+    if (this.list.length >= this.capacity) {
       this.map.delete(this.list.tail.key);
       this.list.popBack();
     }
